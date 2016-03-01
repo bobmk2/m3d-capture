@@ -13,6 +13,14 @@ class M3DCapture {
     this.EVENT_DATA_RECEIVE = 'data recv';
   }
 
+  on(name, callback) {
+    if ([this.EVENT_JOB_START, this.EVENT_JOB_FINISH, this.EVENT_JOB_CHANGE_STATUS, this.EVENT_DATA_RECEIVE].indexOf(name) !== -1) {
+      return false;
+    }
+    core.on(name, callback);
+    return true;
+  }
+
   run(deviceName, option = {}) {
     var tcpTracker = new pcap.TCPTracker();
     var pcapSession = new pcap.Session(deviceName, option);
