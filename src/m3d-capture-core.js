@@ -10,15 +10,15 @@ class M3DCore extends EventEmitter {
     this.lastJobStatus = "";
   }
 
-  onJobStarted(obj) {
+  _onJobStarted(obj) {
     this.emit('job start', obj);
   }
 
-  onJobFinished(obj) {
+  _onJobFinished(obj) {
     this.emit('job finish', obj);
   }
 
-  onChangedJobStatus(newStatus, oldStatus, obj) {
+  _onChangedJobStatus(newStatus, oldStatus, obj) {
     this.emit('job change-status', newStatus, oldStatus, obj);
   }
 
@@ -29,16 +29,16 @@ class M3DCore extends EventEmitter {
       }
 
       if (!this.lastObj.hasOwnProperty('currentJob') && obj.hasOwnProperty('currentJob')) {
-        this.onJobStarted(obj);
+        this._onJobStarted(obj);
       }
 
       if (this.lastObj.hasOwnProperty('currentJob') && !obj.hasOwnProperty('currentJob')) {
-        this.onJobFinished(obj);
+        this._onJobFinished(obj);
       }
 
       if (obj.hasOwnProperty('currentJob')){
         if (this.lastJobStatus != obj.currentJob.status) {
-          this.onChangedJobStatus(obj.currentJob.status, this.lastJobStatus);
+          this._onChangedJobStatus(obj.currentJob.status, this.lastJobStatus);
         }
         this.lastJobStatus = obj.currentJob.status;
       }

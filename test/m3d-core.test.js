@@ -1,7 +1,7 @@
 import assert from 'power-assert';
 import sinon from 'sinon';
 
-import core from '../src/m3d-core';
+import core from '../src/m3d-capture-core';
 
 describe('M3DCore', () => {
   describe('toObj', () => {

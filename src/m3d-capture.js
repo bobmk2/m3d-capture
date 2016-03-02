@@ -1,24 +1,28 @@
 "use strict";
 import pcap from 'pcap2';
-import core from 'm3d-core';
+import core from './m3d-capture-core';
 
 class M3DCapture {
 
   constructor(){
-    super();
-
     this.EVENT_JOB_START = 'job start';
     this.EVENT_JOB_FINISH = 'job finish';
     this.EVENT_JOB_CHANGE_STATUS = 'job change-status';
     this.EVENT_DATA_RECEIVE = 'data recv';
   }
 
-  on(name, callback) {
-    if ([this.EVENT_JOB_START, this.EVENT_JOB_FINISH, this.EVENT_JOB_CHANGE_STATUS, this.EVENT_DATA_RECEIVE].indexOf(name) !== -1) {
+  on(event, listener) {
+    if ([this.EVENT_JOB_START, this.EVENT_JOB_FINISH, this.EVENT_JOB_CHANGE_STATUS, this.EVENT_DATA_RECEIVE].indexOf(event) === -1) {
       return false;
     }
-    core.on(name, callback);
+    core.on(event, listener);
     return true;
+  }
+  getListenerCount(event) {
+    return core.listenerCount(event);
+  }
+  removeListener(event, listener) {
+    core.removeListener(event, listener)
   }
 
   run(deviceName, option = {}) {
