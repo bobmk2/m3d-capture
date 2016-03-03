@@ -7,10 +7,10 @@ import runSequence from 'run-sequence';
 gulp.task('build', () => {
   return gulp.src('src/**/*.js')
     .pipe(babel())
-    .pipe(gulp.dest('build'));
+    .pipe(gulp.dest('lib'));
 });
 
-gulp.task('watch', () => {
+gulp.task('watch', ['build'], () => {
   gulp.watch('./src/**/*.js', () => {
     runSequence('build');
   });
