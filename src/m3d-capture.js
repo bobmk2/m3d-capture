@@ -1,11 +1,11 @@
-"use strict";
+'use strict';
 import {EventEmitter} from 'events';
 import pcap from 'pcap2';
 import core from './m3d-capture-core';
 
 class M3DCapture extends EventEmitter {
 
-  constructor() {
+  constructor () {
     super();
 
     this.lastObj = null;
@@ -17,7 +17,7 @@ class M3DCapture extends EventEmitter {
     this.EVENT_PRINTER_CHANGE_STATUS = 'printer change-status';
   }
 
-  run(interfaceName, options = {}) {
+  run (interfaceName, options = {}) {
     var tcpTracker = new pcap.TCPTracker();
     var pcapSession = new pcap.Session(interfaceName, options);
 
@@ -33,7 +33,7 @@ class M3DCapture extends EventEmitter {
     });
   }
 
-  _onReceivedData(data) {
+  _onReceivedData (data) {
     core.toObj(data).then((obj) => {
       if (!this.lastObj) {
         this.lastObj = obj;
@@ -49,13 +49,13 @@ class M3DCapture extends EventEmitter {
 
       var lastJobStatus = extractJobStatus(this.lastObj);
       var currentJobStatus = extractJobStatus(obj);
-      if (lastJobStatus != currentJobStatus) {
+      if (lastJobStatus !== currentJobStatus) {
         this.emit(this.EVENT_JOB_CHANGE_STATUS, currentJobStatus, lastJobStatus, obj);
       }
 
       var lastPrinterStatus = extractPrinterStatus(this.lastObj);
       var currentPrinterStatus = extractPrinterStatus(obj);
-      if (lastPrinterStatus != currentPrinterStatus) {
+      if (lastPrinterStatus !== currentPrinterStatus) {
         this.emit(this.EVENT_PRINTER_CHANGE_STATUS, currentPrinterStatus, lastPrinterStatus, obj);
       }
 
@@ -65,14 +65,14 @@ class M3DCapture extends EventEmitter {
   }
 }
 
-function extractJobStatus(obj) {
+function extractJobStatus (obj) {
   if (!obj.hasOwnProperty('currentJob')) {
     return 'Nothing';
   }
   return obj.currentJob.status;
 }
 
-function extractPrinterStatus(obj) {
+function extractPrinterStatus (obj) {
   var status = obj.printerStatus.match(/^Firmware_(.*)$/);
   return status ? status[1] : 'Unknown';
 }

@@ -1,10 +1,10 @@
-"use strict";
+'use strict';
 import xml2js from 'xml2js';
 var parseString = xml2js.parseString;
 
 class M3DCore {
 
-  toObj(statusXmlStr) {
+  toObj (statusXmlStr) {
     return new Promise((resolve, reject) => {
       parseString(statusXmlStr, (err, result) => {
         if (err) {
@@ -42,7 +42,7 @@ class M3DCore {
           backlashX: cb.BACKLASH_X,
           backlashY: cb.BACKLASH_Y,
           backlashSpeed: cb.BACKLASH_SPEED
-        }
+        };
 
         var hw = result.SocketBroadcast.PrinterInfo[0].Hardware[0]['$'];
         var hardware = {
@@ -57,7 +57,7 @@ class M3DCore {
           protocolVersion: hw.protocol_version,
           extrudercount: hw.extruder_count,
           repetierProtocol: hw.repetier_protocol
-        }
+        };
 
         var lkel = result.SocketBroadcast.PrinterInfo[0].Extruder[0].LastKnownExtruderLocation[0]['$'];
         var lastKnownExtruderLocation = {x: lkel.X, y: lkel.Y, z: lkel.Z, e: lkel.E};
