@@ -1,53 +1,8 @@
 "use strict";
-import {EventEmitter} from 'events';
 import xml2js from 'xml2js';
 var parseString = xml2js.parseString;
 
-class M3DCore extends EventEmitter {
-  constructor() {
-    super();
-    this.lastObj = null;
-    this.lastJobStatus = "";
-  }
-
-  _onJobStarted(obj) {
-    this.emit('job start', obj);
-  }
-
-  _onJobFinished(obj) {
-    this.emit('job finish', obj);
-  }
-
-  _onChangedJobStatus(newStatus, oldStatus, obj) {
-    this.emit('job change-status', newStatus, oldStatus, obj);
-  }
-
-  onReceivedData(data) {
-    this.toObj(data).then((obj) => {
-      if (!this.lastObj) {
-        this.lastObj = obj;
-      }
-
-      if (!this.lastObj.hasOwnProperty('currentJob') && obj.hasOwnProperty('currentJob')) {
-        this._onJobStarted(obj);
-      }
-
-      if (this.lastObj.hasOwnProperty('currentJob') && !obj.hasOwnProperty('currentJob')) {
-        this._onJobFinished(obj);
-      }
-
-      if (obj.hasOwnProperty('currentJob')){
-        if (this.lastJobStatus != obj.currentJob.status) {
-          this._onChangedJobStatus(obj.currentJob.status, this.lastJobStatus);
-        }
-        this.lastJobStatus = obj.currentJob.status;
-      }
-
-      this.emit('data recv', obj);
-      this.lastObj = obj;
-    });
-
-  }
+class M3DCore {
 
   toObj(statusXmlStr) {
     return new Promise((resolve, reject) => {

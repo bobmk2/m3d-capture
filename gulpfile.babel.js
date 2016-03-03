@@ -10,7 +10,7 @@ gulp.task('build', () => {
     .pipe(gulp.dest('lib'));
 });
 
-gulp.task('watch', () => {
+gulp.task('watch', ['build'], () => {
   gulp.watch('./src/**/*.js', () => {
     runSequence('build');
   });
