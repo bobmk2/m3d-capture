@@ -1,6 +1,6 @@
 {
   "name": "m3d-capture",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "m3d-capture supports you to capture packets from micro 3d printer",
   "main": "index.js",
   "scripts": {
@@ -22,6 +22,11 @@
     "url": "https://github.com/bobmk2/m3d-capture/issues"
   },
   "homepage": "https://github.com/bobmk2/m3d-capture#readme",
+  "dependencies": {
+    "events": "^1.1.0",
+    "pcap2": "^3.0.4",
+    "xml2js": "^0.4.16"
+  },
   "devDependencies": {
     "babel-core": "^6.6.0",
     "babel-preset-es2015": "^6.5.0",
@@ -29,16 +34,13 @@
     "babel-runtime": "^6.5.0",
     "eslint": "^2.2.0",
     "espower-babel": "^4.0.1",
-    "events": "^1.1.0",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
     "gulp-eslint": "^2.0.0",
     "gulp-run": "^1.6.12",
     "mocha": "^2.4.5",
-    "pcap2": "^3.0.4",
     "power-assert": "^1.2.0",
     "run-sequence": "^1.1.5",
-    "sinon": "^1.17.3",
-    "xml2js": "^0.4.16"
+    "sinon": "^1.17.3"
   }
 }
