@@ -1,5 +1,5 @@
 ### m3d-capture ###
-lib/*
+# lib/*
 
 # Created by https://www.gitignore.io/api/node,intellij,osx,windows
 
