@@ -1,3 +1,3 @@
 var m3dCapture = require('./lib/m3d-capture')
 
-module.exports = m3dCapture;
+module.exports = m3dCapture.default;
