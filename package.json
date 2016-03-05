@@ -1,6 +1,6 @@
 {
   "name": "m3d-capture",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "description": "m3d-capture supports you to capture packets from micro 3d printer",
   "main": "index.js",
   "scripts": {
